@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import ContactForm from 'components/ContactForm/ContactForm';
 import Filter from 'components/Filter/Filter';
 import ContactList from 'components/ContactList/ContactList';
+import Section from 'components/Section/Section';
 
 export class App extends Component {
   state = {
@@ -14,21 +15,24 @@ export class App extends Component {
     ],
     filter: '',
   };
-
+  //Обновление value
   handleChange = evt => {
     this.setState({ [evt.currentTarget.name]: evt.target.value });
   };
-
+  //Обновление стейта
   handleAddContact = data => {
     const stateContacts = [...this.state.contacts];
-    const filteredState = this.state.contacts.filter(contact => {
+    const existContact = this.state.contacts.filter(contact => {
       return contact.name.toLowerCase().includes(data.name.toLowerCase());
     });
-    if (filteredState.length > 0) {
+    //Если имя есть в списке контактов выбросить уведомление, и отменить выполнение кода
+    if (existContact.length > 0) {
       alert(`${data.name}, is already in your contacts`);
       return;
     }
+    //Добавляем ID  для контакта
     const id = nanoid();
+    //Обновляем стейт
     this.setState({
       contacts: [
         ...stateContacts,
@@ -36,8 +40,9 @@ export class App extends Component {
       ],
     });
   };
-
+  //Удаляем контакт ID
   deleteContact = contactId => {
+    //Возвращаем новый стейт без контакта
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
@@ -51,19 +56,17 @@ export class App extends Component {
 
     return (
       <div>
-        <section>
-          <h2>Phonebook</h2>
+        <Section title="Phonebook" border="1px solid">
           <ContactForm onSubmit={this.handleAddContact} />
-        </section>
+        </Section>
 
-        <section>
-          <h2>Contacts</h2>
+        <Section title="Contacts">
           <Filter value={this.state.filter} onChange={this.handleChange} />
           <ContactList
             filteredState={filteredState}
             onDelete={this.deleteContact}
           />
-        </section>
+        </Section>
       </div>
     );
   }
