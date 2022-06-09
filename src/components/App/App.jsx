@@ -10,24 +10,24 @@ export class App extends Component {
     contacts: [],
     filter: '',
   };
-  //Обновление value
+  //Update the value
   handleChange = evt => {
     this.setState({ [evt.currentTarget.name]: evt.target.value });
   };
-  //Обновление стейта
+  //Update the state
   handleAddContact = data => {
     const stateContacts = [...this.state.contacts];
     const existContact = this.state.contacts.filter(contact => {
       return contact.name.toLowerCase().includes(data.name.toLowerCase());
     });
-    //Если имя есть в списке контактов выбросить уведомление, и отменить выполнение кода
+
+    //If the name is in the contact list, throw a notification and cancel the code execution
     if (existContact.length > 0) {
       alert(`${data.name}, is already in your contacts`);
       return;
     }
-    //Добавляем ID  для контакта
+    //Add ann ID to a contact
     const id = nanoid();
-    //Обновляем стейт
     this.setState({
       contacts: [
         ...stateContacts,
@@ -35,9 +35,9 @@ export class App extends Component {
       ],
     });
   };
-  //Удаляем контакт ID
+  //Delete a contact with ID
   deleteContact = contactId => {
-    //Возвращаем новый стейт без контакта
+    //Return a new state without contact
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
