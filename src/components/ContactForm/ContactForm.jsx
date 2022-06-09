@@ -7,9 +7,11 @@ export default class ContactForm extends Component {
     name: '',
     number: '',
   };
+
   handleChange = evt => {
     this.setState({ [evt.currentTarget.name]: evt.target.value });
   };
+
   handleAddContact = evt => {
     evt.preventDefault();
     this.props.onSubmit(this.state);
@@ -32,6 +34,7 @@ export default class ContactForm extends Component {
             required
           />
         </label>
+
         <label className={s.formItem}>
           Number
           <input
@@ -52,6 +55,7 @@ export default class ContactForm extends Component {
     );
   }
 }
+
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };

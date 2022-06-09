@@ -10,10 +10,12 @@ export class App extends Component {
     contacts: [],
     filter: '',
   };
+
   //Update the value
   handleChange = evt => {
     this.setState({ [evt.currentTarget.name]: evt.target.value });
   };
+
   //Update the state
   handleAddContact = data => {
     const stateContacts = [...this.state.contacts];
@@ -26,6 +28,7 @@ export class App extends Component {
       alert(`${data.name}, is already in your contacts`);
       return;
     }
+
     //Add ann ID to a contact
     const id = nanoid();
     this.setState({
@@ -35,6 +38,7 @@ export class App extends Component {
       ],
     });
   };
+
   //Delete a contact with ID
   deleteContact = contactId => {
     //Return a new state without contact

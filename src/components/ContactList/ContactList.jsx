@@ -15,6 +15,7 @@ export default function ContactList({ filteredState, onDelete }) {
     </ul>
   );
 }
+
 ContactList.propTypes = {
   filteredState: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
